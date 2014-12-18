@@ -89,11 +89,11 @@ public class SensorService extends Service implements SensorEventListener {
         Log.i(TAG, "onSensorChanged().");
 
         if (tap1 == 0) {
-            Log.i(TAG, "Primo TAP");
+            Log.i(TAG, "First TAP");
             tap1 = SystemClock.elapsedRealtime();
         } else {
             if (SystemClock.elapsedRealtime() - tap1 <= ViewConfiguration.getDoubleTapTimeout()) {
-                Log.i(TAG, "Doppio TAP!");
+                Log.i(TAG, "Second TAP!");
                 tap1 = 0;
                 /*
                 Window window = this.getWindow();
@@ -115,7 +115,7 @@ public class SensorService extends Service implements SensorEventListener {
 
             } else {
                 tap1 = 0;
-                Log.i(TAG, "Annullato TAP");
+                Log.i(TAG, "Deleted TAP");
             }
         }
 

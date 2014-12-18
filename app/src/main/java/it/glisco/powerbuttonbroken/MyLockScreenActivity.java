@@ -18,6 +18,12 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
     private static final String description = "Some Description About Your Admin";
     private DevicePolicyManager mDevicePolicyManager;
     private ComponentName mComponentName;
+    private Button btnEnableAdmin;
+    private Button btnDisableAdmin;
+    private Button btnLock;
+    private Button btnPowerOff;
+    private Button btnStartService;
+    private Button btnStopService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +32,15 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         mDevicePolicyManager = (DevicePolicyManager)getSystemService(
                 Context.DEVICE_POLICY_SERVICE);
         mComponentName = new ComponentName(this, MyAdminReceiver.class);
-        Button btnEnableAdmin = (Button) findViewById(R.id.btnEnable);
-        Button btnDisableAdmin = (Button) findViewById(R.id.btnDisable);
-        Button btnLock = (Button) findViewById(R.id.btnLock);
-        Button btnPowerOff = (Button) findViewById(R.id.btnPowerOff);
+        btnEnableAdmin = (Button) findViewById(R.id.btnEnable);
+        btnDisableAdmin = (Button) findViewById(R.id.btnDisable);
+        btnLock = (Button) findViewById(R.id.btnLock);
+        btnPowerOff = (Button) findViewById(R.id.btnPowerOff);
+
+        btnStartService = (Button) findViewById(R.id.btnStartService);
+        btnStopService = (Button) findViewById(R.id.btnStopService);
+
+
 
         btnEnableAdmin.setOnClickListener(this);
         btnDisableAdmin.setOnClickListener(this);
@@ -41,12 +52,16 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
     public void startService(View v)
     {
         //startService(new Intent(this,LogService.class));
+        btnStartService.setVisibility(View.GONE);
+        btnStopService.setVisibility(View.VISIBLE);
         startService(new Intent(this,SensorService.class));
     }
 
     public void stopService(View v)
     {
         //stopService(new Intent(this,LogService.class));
+        btnStartService.setVisibility(View.VISIBLE);
+        btnStopService.setVisibility(View.GONE);
         stopService(new Intent(this,SensorService.class));
     }
 
@@ -58,11 +73,16 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                 intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mComponentName);
                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,description);
                 startActivityForResult(intent, ADMIN_INTENT);
+                btnEnableAdmin.setVisibility(View.GONE);
+                btnDisableAdmin.setVisibility(View.GONE);
+
                 break;
 
             case R.id.btnDisable:
                 mDevicePolicyManager.removeActiveAdmin(mComponentName);
                 Toast.makeText(getApplicationContext(), "Admin registration removed", Toast.LENGTH_SHORT).show();
+                btnEnableAdmin.setVisibility(View.VISIBLE);
+                btnDisableAdmin.setVisibility(View.GONE);
                 break;
 
             case R.id.btnLock:
@@ -71,6 +91,8 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                     mDevicePolicyManager.lockNow();
                 }else{
                     Toast.makeText(getApplicationContext(), "Not Registered as admin", Toast.LENGTH_SHORT).show();
+                    btnEnableAdmin.setVisibility(View.VISIBLE);
+                    btnDisableAdmin.setVisibility(View.GONE);
                 }
                 break;
 
@@ -114,8 +136,12 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         if (requestCode == ADMIN_INTENT) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(getApplicationContext(), "Registered As Admin", Toast.LENGTH_SHORT).show();
+                btnEnableAdmin.setVisibility(View.GONE);
+                btnDisableAdmin.setVisibility(View.VISIBLE);
             }else{
                 Toast.makeText(getApplicationContext(), "Failed to register as Admin", Toast.LENGTH_SHORT).show();
+                btnEnableAdmin.setVisibility(View.VISIBLE);
+                btnDisableAdmin.setVisibility(View.GONE);
             }
         }
     }

@@ -1,69 +1,75 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true"
     tools:context=".MyLockScreenActivity" >
 
     <TextView
         android:id="@+id/txt1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/description" />
 
     <Button
         android:id="@+id/btnEnable"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enable"
-        android:layout_below="@+id/txt1" />
+        android:text="Permit this app to lock the device"
+
+       />
 
     <Button
         android:id="@+id/btnDisable"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Disable"
-        android:layout_below="@+id/btnEnable" />
+        android:text="Remove permission to lock the device"
+        android:visibility="gone"
+         />
 
     <Button
         android:id="@+id/btnLock"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lock"
-        android:layout_below="@+id/btnDisable" />
+       />
 
 
 
     <Button
         android:id="@+id/btnPowerOff"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Power OFF!"
-        android:layout_below="@+id/btnLock" />
+         />
 
 
     <Button
         android:id="@+id/btnReboot"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reboot!"
-        android:layout_below="@+id/btnPowerOff" />
+        />
 
 
 
     <Button
         android:id="@+id/btnStartService"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Service Proximity"
+        android:text="Active Screen ON with Double tap/gesture over the proximity sensor"
         android:onClick="startService"
-        android:layout_below="@+id/btnReboot" />
+        />
+
     <Button
-        android:id="@+id/btnStopservice"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnStopService"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stop Service Proximity"
+        android:text="Stop Screen On with Proximity Sensor"
         android:onClick="stopService"
-        android:layout_below="@+id/btnStartService" />
+        android:visibility="gone"
+         />
 
 
-</RelativeLayout>
+</LinearLayout>
