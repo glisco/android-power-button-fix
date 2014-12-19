@@ -6,5 +6,9 @@
         - fix and preserve your Power Button.\n
         - use the button only to power on your device.</string>
     <string name="action_settings">Settings</string>
+    <string name="quit">Power OFF</string>
+    <string name="really_quit">Really POWER OFF?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 
 </resources>

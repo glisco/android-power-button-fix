@@ -3,9 +3,11 @@ package it.glisco.powerbuttonbroken;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -135,13 +137,32 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                 break;
 
             case R.id.btnPowerOff:
-                try {
-                    Process proc = Runtime.getRuntime()
-                            .exec(new String[]{ "su", "-c", "reboot -p" });
-                    proc.waitFor();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+
+                //Ask the user if they want to quit
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.quit)
+                        .setMessage(R.string.really_quit)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                
+                                try {
+                                    Process proc = Runtime.getRuntime()
+                                            .exec(new String[]{ "su", "-c", "reboot -p" });
+                                    proc.waitFor();
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+
+                               
+                            }
+
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
+
                 /*
                 Intent i = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
                 i.putExtra("android.intent.extra.KEY_CONFIRM", true);
@@ -150,13 +171,33 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                 break;
 
             case R.id.btnReboot:
-                try {
-                    Process proc = Runtime.getRuntime()
-                            .exec(new String[]{ "su", "-c", "reboot" });
-                    proc.waitFor();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+
+                //Ask the user if they want to quit
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.quit)
+                        .setMessage(R.string.really_quit)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                try {
+                                    Process proc = Runtime.getRuntime()
+                                            .exec(new String[]{ "su", "-c", "reboot" });
+                                    proc.waitFor();
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+
+
+                            }
+
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
+                
+
                 /*
                 Intent i = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
                 i.putExtra("android.intent.extra.KEY_CONFIRM", true);
