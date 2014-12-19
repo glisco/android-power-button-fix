@@ -2,6 +2,7 @@ package it.glisco.powerbuttonbroken;
 
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 public class MyLockScreenActivity extends Activity implements OnClickListener {
 
     private static final int ADMIN_INTENT = 15;
-    private static final String description = "Some Description About Your Admin";
+    private static final String description = " You could lock your phone preserving your power button";
     private DevicePolicyManager mDevicePolicyManager;
     private ComponentName mComponentName;
     private Button btnEnableAdmin;
@@ -46,7 +47,44 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         btnDisableAdmin.setOnClickListener(this);
         btnLock.setOnClickListener(this);
         btnPowerOff.setOnClickListener(this);
+        
+        if (isMyServiceRunning(this)) {
+            btnStartService.setVisibility(View.GONE);
+            btnStopService.setVisibility(View.VISIBLE);            
+        }
+        else {
+            btnStartService.setVisibility(View.VISIBLE);
+            btnStopService.setVisibility(View.GONE);
+        }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isMyServiceRunning(this)) {
+            btnStartService.setVisibility(View.GONE);
+            btnStopService.setVisibility(View.VISIBLE);
+        }
+        else {
+            btnStartService.setVisibility(View.VISIBLE);
+            btnStopService.setVisibility(View.GONE);
+        }
+        
+        
+    }
+
+    private boolean isMyServiceRunning(Context mContext) {
+        ActivityManager manager = (ActivityManager) mContext
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager
+                .getRunningServices(Integer.MAX_VALUE)) {
+            if (SensorService.class.getName().equals(
+            service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void startService(View v)

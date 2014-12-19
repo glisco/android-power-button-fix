@@ -10,15 +10,18 @@
         android:id="@+id/txt1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/description" />
+        android:text="@string/description"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/btnEnable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Permit this app to lock the device"
+        android:drawableLeft="@drawable/personal"
 
-       />
+
+        />
 
     <Button
         android:id="@+id/btnDisable"
@@ -26,13 +29,16 @@
         android:layout_height="wrap_content"
         android:text="Remove permission to lock the device"
         android:visibility="gone"
-         />
+        android:drawableLeft="@drawable/personal"
+
+        />
 
     <Button
         android:id="@+id/btnLock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lock"
+        android:drawableLeft="@drawable/lock"
        />
 
 
@@ -42,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Power OFF!"
+        android:drawableLeft="@drawable/ic_launcher"
          />
 
 
@@ -50,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reboot!"
+        android:drawableLeft="@drawable/restart"
         />
 
 
@@ -60,6 +68,8 @@
         android:layout_height="wrap_content"
         android:text="Active Screen ON with Double tap/gesture over the proximity sensor"
         android:onClick="startService"
+        android:drawableLeft="@drawable/proximity"
+
         />
 
     <Button
@@ -69,7 +79,9 @@
         android:text="Stop Screen On with Proximity Sensor"
         android:onClick="stopService"
         android:visibility="gone"
-         />
+        android:drawableLeft="@drawable/proximity"
+
+        />
 
 
 </LinearLayout>
