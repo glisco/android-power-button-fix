@@ -1,6 +1,7 @@
 package it.glisco.powerbuttonbroken;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
@@ -164,10 +165,37 @@ public class SensorService extends Service implements SensorEventListener {
         Log.i(TAG, "onStartCommand().");
         tap1=0;
 
-        startForeground(Process.myPid(), new Notification());
+
+        startForeground(Process.myPid(), buildForegroundNotification());
         registerListener();
         mWakeLock.acquire();
 
         return START_STICKY;
     }
+
+
+    private Notification buildForegroundNotification() {
+
+        Intent resultIntent = new Intent(this, MyLockScreenActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        
+        Notification.Builder b=new Notification.Builder(this);
+        b.setContentIntent(resultPendingIntent);
+
+        b.setOngoing(true);
+
+        b.setContentTitle(getString(R.string.app_name))
+                .setContentText("Tap here to switch off and lock your device")
+                .setSmallIcon(R.drawable.lock)
+                .setTicker("lock");
+
+        return(b.build());
+    }
+    
 }
