@@ -24,7 +24,7 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
     private Button btnEnableAdmin;
     private Button btnDisableAdmin;
     private Button btnLock;
-    private Button btnPowerOff;
+    private Button btnPowerOff, btnReboot;
     private Button btnStartService;
     private Button btnStopService;
 
@@ -39,6 +39,11 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         btnDisableAdmin = (Button) findViewById(R.id.btnDisable);
         btnLock = (Button) findViewById(R.id.btnLock);
         btnPowerOff = (Button) findViewById(R.id.btnPowerOff);
+        btnReboot = (Button) findViewById(R.id.btnReboot);
+
+
+
+        
 
         btnStartService = (Button) findViewById(R.id.btnStartService);
         btnStopService = (Button) findViewById(R.id.btnStopService);
@@ -49,7 +54,9 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         btnDisableAdmin.setOnClickListener(this);
         btnLock.setOnClickListener(this);
         btnPowerOff.setOnClickListener(this);
-        
+        btnReboot.setOnClickListener(this);
+
+
         if (isMyServiceRunning(this)) {
             btnStartService.setVisibility(View.GONE);
             btnStopService.setVisibility(View.VISIBLE);            
@@ -175,8 +182,8 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                 //Ask the user if they want to quit
                 new AlertDialog.Builder(this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle(R.string.quit)
-                        .setMessage(R.string.really_quit)
+                        .setTitle(R.string.reboot)
+                        .setMessage(R.string.really_reboot)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                             @Override

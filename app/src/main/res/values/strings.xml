@@ -10,5 +10,7 @@
     <string name="really_quit">Really POWER OFF?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="reboot">REBOOT</string>
+    <string name="really_reboot">Really REBOOT?</string>
 
 </resources>
