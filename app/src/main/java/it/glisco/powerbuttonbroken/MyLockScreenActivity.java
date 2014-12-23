@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class MyLockScreenActivity extends Activity implements OnClickListener {
@@ -27,6 +28,9 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
     private Button btnPowerOff, btnReboot;
     private Button btnStartService;
     private Button btnStopService;
+    
+    private Switch switchService;
+    private Switch switchAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         btnStartService = (Button) findViewById(R.id.btnStartService);
         btnStopService = (Button) findViewById(R.id.btnStopService);
 
+        switchService =(Switch) findViewById(R.id.switchService);
+        //switchAdmin =(Switch) findViewById(R.id.switch2);
+
 
 
         btnEnableAdmin.setOnClickListener(this);
@@ -57,6 +64,12 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         btnReboot.setOnClickListener(this);
 
 
+        switchService.setChecked(isMyServiceRunning(this));
+        
+        
+        
+        
+        /*
         if (isMyServiceRunning(this)) {
             btnStartService.setVisibility(View.GONE);
             btnStopService.setVisibility(View.VISIBLE);            
@@ -65,21 +78,27 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
             btnStartService.setVisibility(View.VISIBLE);
             btnStopService.setVisibility(View.GONE);
         }
+        */
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        switchService.setChecked(isMyServiceRunning(this));
+        
+        /*
         if (isMyServiceRunning(this)) {
             btnStartService.setVisibility(View.GONE);
             btnStopService.setVisibility(View.VISIBLE);
+            
         }
         else {
             btnStartService.setVisibility(View.VISIBLE);
             btnStopService.setVisibility(View.GONE);
         }
-        
+        */
         
     }
 
@@ -96,25 +115,51 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         return false;
     }
 
+
+    public void onSwitchServiceClicked(View v) {
+
+
+        if (isMyServiceRunning(this)) {
+            stopService(new Intent(this,SensorService.class));            
+        }
+        else {
+            startService(new Intent(this,SensorService.class));
+
+        }
+        
+         switchService.setChecked(isMyServiceRunning(this));
+        
+    }
+    
+    
+    
     public void startService(View v)
     {
-        //startService(new Intent(this,LogService.class));
+        /*
         btnStartService.setVisibility(View.GONE);
         btnStopService.setVisibility(View.VISIBLE);
+        */
         startService(new Intent(this,SensorService.class));
+        switchService.setChecked(isMyServiceRunning(this));
     }
 
     public void stopService(View v)
     {
         //stopService(new Intent(this,LogService.class));
+        /*
         btnStartService.setVisibility(View.VISIBLE);
         btnStopService.setVisibility(View.GONE);
+        */
         stopService(new Intent(this,SensorService.class));
+        switchService.setChecked(isMyServiceRunning(this));
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            
+            /*
             case R.id.btnEnable:
                 Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                 intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mComponentName);
@@ -131,15 +176,24 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
                 btnEnableAdmin.setVisibility(View.VISIBLE);
                 btnDisableAdmin.setVisibility(View.GONE);
                 break;
-
+            */
             case R.id.btnLock:
                 boolean isAdmin = mDevicePolicyManager.isAdminActive(mComponentName);
                 if (isAdmin) {
                     mDevicePolicyManager.lockNow();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Not Registered as admin", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                    intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mComponentName);
+                    intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,description);
+                    startActivityForResult(intent, ADMIN_INTENT);
+                    
+                    //Toast.makeText(getApplicationContext(), "Not Registered as admin", Toast.LENGTH_SHORT).show();
+                   
+                    /*
                     btnEnableAdmin.setVisibility(View.VISIBLE);
                     btnDisableAdmin.setVisibility(View.GONE);
+                    */
                 }
                 break;
 
@@ -222,12 +276,19 @@ public class MyLockScreenActivity extends Activity implements OnClickListener {
         if (requestCode == ADMIN_INTENT) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(getApplicationContext(), "Registered As Admin", Toast.LENGTH_SHORT).show();
+                mDevicePolicyManager.lockNow();
+
+                /*
                 btnEnableAdmin.setVisibility(View.GONE);
                 btnDisableAdmin.setVisibility(View.VISIBLE);
+                */
+                
             }else{
                 Toast.makeText(getApplicationContext(), "Failed to register as Admin", Toast.LENGTH_SHORT).show();
+                /*
                 btnEnableAdmin.setVisibility(View.VISIBLE);
                 btnDisableAdmin.setVisibility(View.GONE);
+                */
             }
         }
     }

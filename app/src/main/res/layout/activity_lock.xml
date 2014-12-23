@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Permit this app to lock the device"
         android:drawableLeft="@drawable/personal"
-
+        android:visibility="gone"
 
         />
 
@@ -69,6 +69,7 @@
         android:text="Active Screen ON with Double tap/gesture over the proximity sensor"
         android:onClick="startService"
         android:drawableLeft="@drawable/proximity"
+        android:visibility="gone"
 
         />
 
@@ -82,24 +83,32 @@
         android:onClick="stopService"
         android:visibility="gone"
         android:drawableLeft="@drawable/proximity"
-
+        
         />
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    
+    
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/proximity"/>
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Permit this app to lock the device"
-        android:id="@+id/switch1"
-        android:layout_gravity="center_horizontal" />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen on with Double tap on Proximity Sensor"
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Double tap Proximity Sensor for Screen On"
-        android:id="@+id/switch2"
-        android:layout_gravity="center_horizontal" />
-
+            android:id="@+id/switchService"
+            android:onClick="onSwitchServiceClicked"
+             />
+        
+        </LinearLayout>
 
 
 </LinearLayout>
