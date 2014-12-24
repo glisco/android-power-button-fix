@@ -102,7 +102,7 @@
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Screen on with Double tap on Proximity Sensor"
+            android:text="Screen ON with gesture left-right on Proximity Sensor"
 
             android:id="@+id/switchService"
             android:onClick="onSwitchServiceClicked"
