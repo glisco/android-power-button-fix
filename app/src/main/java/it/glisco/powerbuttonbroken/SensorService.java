@@ -187,7 +187,7 @@ public class SensorService extends Service implements SensorEventListener {
 
 
         Intent doLockIntent = new Intent(this, doLockReceiver.class);
-        PendingIntent doLockpendingIntent = PendingIntent.getBroadcast(this, 0, doLockIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent doLockPendingIntent = PendingIntent.getBroadcast(this, 0, doLockIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
 
@@ -204,8 +204,8 @@ public class SensorService extends Service implements SensorEventListener {
                 //.addAction(R.drawable.lock, "Lock", lockPendingIntent) // #0
                 //.addAction(R.drawable.ic_launcher, "Power OFF", powerOffPendingIntent)  // #1
                 //.addAction(R.drawable.restart, "Reboot", rebootPendingIntent)     // #2
-                .addAction(R.drawable.lock,"Lock",doLockpendingIntent) // #0
-                .addAction(R.drawable.ic_launcher, "Power OFF", powerOffPendingIntent)  // #1
+                .addAction(R.drawable.lock,"Lock",doLockPendingIntent) // #0
+                .addAction(R.drawable.ic_launcher_black_and_white, "PowerOFF", resultPendingIntent)  // #1
                 //.addAction(R.drawable.restart, "Reboot", rebootPendingIntent)     // #2                     .setContentText("Tap here to switch off and lock your device")
                 .setSmallIcon(R.drawable.lock)
                 .setTicker("lock");
