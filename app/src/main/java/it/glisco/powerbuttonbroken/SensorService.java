@@ -195,7 +195,11 @@ public class SensorService extends Service implements SensorEventListener {
         PendingIntent powerOffPendingIntent = PendingIntent.getBroadcast(this, 0, powerOffIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
+        int color = getResources().getColor(R.color.Crimson);
         Notification.Builder b=new Notification.Builder(this);
+
+        b.setColor(color);
+        
         b.setContentIntent(resultPendingIntent);
 
         b.setOngoing(true);
